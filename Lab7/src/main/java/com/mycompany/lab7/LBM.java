@@ -7,7 +7,7 @@ public class LBM {
     //final static int NITER = 30000 ;
     final static int NITER = 5000 ;
 
-    final static int NX = 520, NY = 180 ;  // Lattice dimensions
+    final static int NX = 1080, NY = 720 ;  // Lattice dimensions
     final static int Q = 9 ;  // num states
      
     final static double uLB = 0.06 ;  // Inlet velocity in lattice units
@@ -199,13 +199,6 @@ public class LBM {
                                 fin_ij [i3 [p]] = feq [i3 [p]] ;
                             }
                         }
-                        for(int d = 0; d < Q ; d++) {
-                            fout_ij [d] = fin_ij [d] -
-                                    omega * (fin_ij [d] - feq [d]) ;
-                        }
-
-/*
-                        // UNROLLED version of above loop over d
                         fout_ij [0] = fin_ij [0] -
                                       omega * (fin_ij [0] - feq [0]) ;
                         fout_ij [1] = fin_ij [1] -
@@ -224,7 +217,6 @@ public class LBM {
                                       omega * (fin_ij [7] - feq [7]) ;
                         fout_ij [8] = fin_ij [8] -
                                       omega * (fin_ij [8] - feq [8]) ;
-*/
                     }
                 }
             }
@@ -245,14 +237,6 @@ public class LBM {
 
                 for(int j = 0 ; j < NY ; j++) {
                     double [] fout_ij = fout [i] [j] ;
-                    for(int d = 0; d < Q ; d++) {
-                        int i_shf = (i + c [d] [0] + NX) % NX ;
-                        int j_shf = (j + c [d] [1] + NY) % NY ;
-                        fin [i_shf] [j_shf] [d] = fout_ij [d] ;
-                    }
-
-/*
-                    // UNROLLED version of above loop over d
                     int jP1 = (j + 1) % NY ;
                     int jM1 = (j - 1 + NY) % NY ;
 
@@ -265,7 +249,6 @@ public class LBM {
                     fin_iP1 [j] [6] = fout_ij [6] ;
                     fin_iP1 [jM1] [7] = fout_ij [7] ;
                     fin_iP1 [jP1] [8] = fout_ij [8] ;
-*/
                 }
             }
 
@@ -307,13 +290,6 @@ public class LBM {
 
         double usqr = u0 * u0 + u1 * u1 ;
 
-        for(int d = 0; d < Q ; d++) {
-            int [] cEl = c [d] ;
-            double cElu = cEl [0] * u0 + cEl [1] * u1 ;
-            feq [d] = rho * w [d] * (1.0 + 3.0 * cElu +
-                                     4.5 * cElu * cElu - 1.5 * usqr) ;
-        }
-/*
         // UNROLLED version of above loop over d
         double u0Pu1 = u0 + u1 ;
         double u0Mu1 = u0 - u1 ;
@@ -331,7 +307,6 @@ public class LBM {
                               4.5 * u0Mu1 * u0Mu1 - 1.5 * usqr) ;
         feq [8] = rho * W2 * (1.0 + 3.0 * u0Pu1 +
                               4.5 * u0Pu1 * u0Pu1 - 1.5 * usqr) ;
-*/
     }
 
     static class Display extends JPanel {
