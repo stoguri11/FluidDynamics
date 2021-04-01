@@ -1,4 +1,4 @@
 # Fluid Dynamics Simulation
-This application implements an 9 state cellular automaton to simulate the Navier-Stokes equations of fluid dynamics.
+This application implements the Lattice Boltzmann Model cellular automaton to simulate the flow of a fluid around certain objects.
 
 Java with Maven project -- Requires JDK 8 
