@@ -1,13 +1,14 @@
+package com.mycompany.LatticeBoltzmannModel;
+
 
 import java.awt.* ;
 import javax.swing.* ;
 
 public class LBM {
 
-    //final static int NITER = 30000 ;
-    final static int NITER = 5000 ;
+    final static int NITER = 40000 ; // how many time steps to run simulations
 
-    final static int NX = 1080, NY = 720 ;  // Lattice dimensions
+    final static int NX = 800, NY = 500 ;  // Lattice dimensions
     final static int Q = 9 ;  // num states
      
     final static double uLB = 0.06 ;  // Inlet velocity in lattice units
@@ -21,7 +22,7 @@ public class LBM {
     final static double W2 = 1.0 / 36 ;
 
     final static int CELL_SIZE = 2 ; 
-    final static int OUTPUT_FREQ = 100 ;
+    final static int OUTPUT_FREQ = 1 ; // change how quickly the simulations runs
 
     static Display display = new Display() ;
 
@@ -34,7 +35,7 @@ public class LBM {
 
     public static void main(String args []) throws Exception {
 
-        double cx = NX/4.0, cy = NY/2.0, r = 20 ;
+        double cx = NX/4.0, cy = NY/2.0, r = 80 ;
                 // Coordinates and size of obstacle.
 
         double nulb = uLB * r / Re ;
